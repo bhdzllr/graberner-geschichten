@@ -10,13 +10,13 @@
 	$postCount = (int) wp_count_posts( 'story' )->publish;
 
 	$termsCategory = get_terms( 'story-category' );
-	$termsFormat   = get_terms( 'story-format' );
-	$termsYear     = get_terms( 'story-year', array( 'hide_empty' => false ) );
+	// $termsFormat   = get_terms( 'story-format' );
+	$termsYear     = get_terms( 'story-year', array( 'hide_empty' => false, 'orderby' => 'slug', ) );
 
-	$audio = new WP_Query( array( 'story-format' => 'audio' ) );
-	$bild  = new WP_Query( array( 'story-format' => 'bild'  ) );
-	$text  = new WP_Query( array( 'story-format' => 'text'  ) );
-	$video = new WP_Query( array( 'story-format' => 'video' ) );
+	// $audio = new WP_Query( array( 'story-format' => 'audio' ) );
+	// $bild  = new WP_Query( array( 'story-format' => 'bild'  ) );
+	// $text  = new WP_Query( array( 'story-format' => 'text'  ) );
+	// $video = new WP_Query( array( 'story-format' => 'video' ) );
 
 	?>
 	<nav class="filter">
@@ -36,8 +36,8 @@
 				</ul>
 			</form>
 
-			<form class="filter-form">
-				<h1 class="filter-form__title"><a href="#" title="Format" class="icon-after icon-after--arrow js-dropdown-format js-dropdown">Format</a></h1>
+			<!-- <form class="filter-form">
+				<h1 class="filter-form__title"><a href="#" title="Format" class="icon-after icon-after-//-arrow js-dropdown-format js-dropdown">Format</a></h1>
 				<ul class="filter-form__list js-list">
 				<?php if ( empty( $termsFormat ) ) : ?>
 					<li>Noch keine Formate vorhanden.</li>
@@ -49,7 +49,7 @@
 					</li>
 				<?php endforeach; ?>
 				</ul>
-			</form>
+			</form> -->
 
 			<form class="filter-form filter-form--year">
 				<h1 class="filter-form__title filter-form__title--year"><a href="#" title="Jahr" class="icon-after icon-after--arrow js-dropdown-year js-dropdown">Jahr</a></h1>
@@ -84,13 +84,13 @@
 	
 	<main role="main" id="main" class="main main--filter-page site-width clearfix">
 		<div>
-			<ul class="result-count">
-				<li class="result-count__item icon-before icon-before--video js-video-count"><?php echo $video->found_posts; ?></li>
-				<li class="result-count__item icon-before icon-before--bild js-bild-count"><?php echo $bild->found_posts; ?></li>
-				<li class="result-count__item icon-before icon-before--text js-text-count"><?php echo $text->found_posts; ?></li>
-				<li class="result-count__item icon-before icon-before--audio js-audio-count"><?php echo $audio->found_posts; ?></li>
+			<!-- <ul class="result-count">
+				<li class="result-count__item icon-before icon-before-//-video js-video-count"><?php echo $video->found_posts; ?></li>
+				<li class="result-count__item icon-before icon-before-//-bild js-bild-count"><?php echo $bild->found_posts; ?></li>
+				<li class="result-count__item icon-before icon-before-//-text js-text-count"><?php echo $text->found_posts; ?></li>
+				<li class="result-count__item icon-before icon-before-//-audio js-audio-count"><?php echo $audio->found_posts; ?></li>
 				<li class="result-count__item"><a href="<?php echo get_permalink(6); ?>" class="js-reset">Reset</a></li>
-			</ul>
+			</ul> -->
 
 			<p class="result-count js-noresults">Zu Ihren Suchkriterien gibt es keine Ergebnisse, bitte wählen sie andere Filter.</p>
 		</div>

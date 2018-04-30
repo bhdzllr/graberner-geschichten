@@ -30,6 +30,9 @@ GSCHICHTN.Filter = (function(window, document, $) {
 	var loadMore      = loadMore(); // Closure, to only run once at a time
 	var loadMoreCount = 1;          // Count to load always a minimum of n (n = ppp) stories
 
+	/** Dropdown Bug Fix Switch, this is stupid, but it works */
+	var recentlyClosedDropdown = false;
+
 	/**
 	 * Prepare DOM,
 	 * hide and show different containers on initializing.
@@ -38,7 +41,7 @@ GSCHICHTN.Filter = (function(window, document, $) {
 		$('.js-more').prop('disabled', false); // Sometimes refresh comes with disabled button
 
 		var loadingImage = new Image();
-		loadingImage.src = '../img/loader.gif';
+		loadingImage.src = '/system/wp-content/themes/gschichtn-child/img/loader.gif';
 	}
 
 	/**
@@ -48,7 +51,8 @@ GSCHICHTN.Filter = (function(window, document, $) {
 		/** Dropdown */
 		$('.js-dropdown').click(toggleDropdown);
 		$('body').click(closeDropdown);
-		$('.js-list').mouseleave(function() {
+		$('.js-list').mouseleave(function(e) {
+			recentlyClosedDropdown = true;
 			$(this).fadeOut('slow');
 		});
 
@@ -112,6 +116,11 @@ GSCHICHTN.Filter = (function(window, document, $) {
 	 * @returns {boolean} False (prevent default event).
 	 */
 	function toggleDropdown() {
+		if (recentlyClosedDropdown) {
+			recentlyClosedDropdown = false;
+			return false;
+		}
+
 		$(this)
 			.parent()
 			.parent()
@@ -183,10 +192,10 @@ GSCHICHTN.Filter = (function(window, document, $) {
 				$('.js-more').fadeOut();
 		});
 
-		formatsCount['video'] = $('.js-video-count').text();
-		formatsCount['bild']  = $('.js-bild-count').text();
-		formatsCount['text']  = $('.js-text-count').text();
-		formatsCount['audio'] = $('.js-audio-count').text();
+		// formatsCount['video'] = $('.js-video-count').text();
+		// formatsCount['bild']  = $('.js-bild-count').text();
+		// formatsCount['text']  = $('.js-text-count').text();
+		// formatsCount['audio'] = $('.js-audio-count').text();
 
 		updateFormatsCount();
 		showViewedMarker();
@@ -531,10 +540,10 @@ GSCHICHTN.Filter = (function(window, document, $) {
 			}
 		});
 
-		(formats['video']) ? $('.js-video-count').text(formats['video'] + '/' + formatsCount['video']) : $('.js-video-count').text('0' + '/' + formatsCount['video']);
-		(formats['bild'])  ? $('.js-bild-count').text(formats['bild']   + '/' + formatsCount['bild'])  : $('.js-bild-count').text('0'  + '/' + formatsCount['bild']);
-		(formats['text'])  ? $('.js-text-count').text(formats['text']   + '/' + formatsCount['text'])  : $('.js-text-count').text('0'  + '/' + formatsCount['text']);
-		(formats['audio']) ? $('.js-audio-count').text(formats['audio'] + '/' + formatsCount['audio']) : $('.js-audio-count').text('0' + '/' + formatsCount['audio']);
+		// (formats['video']) ? $('.js-video-count').text(formats['video'] + '/' + formatsCount['video']) : $('.js-video-count').text('0' + '/' + formatsCount['video']);
+		// (formats['bild'])  ? $('.js-bild-count').text(formats['bild']   + '/' + formatsCount['bild'])  : $('.js-bild-count').text('0'  + '/' + formatsCount['bild']);
+		// (formats['text'])  ? $('.js-text-count').text(formats['text']   + '/' + formatsCount['text'])  : $('.js-text-count').text('0'  + '/' + formatsCount['text']);
+		// (formats['audio']) ? $('.js-audio-count').text(formats['audio'] + '/' + formatsCount['audio']) : $('.js-audio-count').text('0' + '/' + formatsCount['audio']);
 	}
 
 	/**

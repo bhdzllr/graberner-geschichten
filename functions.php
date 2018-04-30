@@ -396,6 +396,8 @@ function gschichtn_opg_tags() {
 	<meta property="og:type" content="<?php echo $type; ?>" />
 	<meta property="og:url" content="<?php the_permalink(); ?>" />
 	<meta property="og:image" content="<?php echo $imgSrc; ?>" />
+	<meta property="og:image:width" content="<?php echo getimagesize($imgSrc)[0]; ?>" />
+	<meta property="og:image:height" content="<?php echo getimagesize($imgSrc)[1]; ?>" />
 	<meta name="twitter:card" content="<?php echo $twitterCardType; ?>" />
 	<!-- <meta name="twitter:site" content="@" /> -->
 	<meta name="twitter:title" content="<?php the_title() ?>" />
