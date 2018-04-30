@@ -1,0 +1,21 @@
+body {
+	margin-bottom: 0;
+}
+
+.filter {
+	display: none;
+
+	left: 0;
+}
+
+.result-count {
+	display: none;
+}
+
+.main {
+	padding-top: 0;
+}
+
+.site-footer {
+	position: static;
+}

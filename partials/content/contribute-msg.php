@@ -1,0 +1,1 @@
+<p class="msg <?php echo $msg[0]['type']; ?>"><?php echo $msg[0]['text']; ?></p>
