@@ -34,7 +34,10 @@ GSCHICHTN.Main = (function(window, document, $) {
 		$('html').removeClass('no-js');
 
 		/** FOIT */
-		var observer = new FontFaceObserver('Open Sans');
+		var observer = new FontFaceObserver('Open Sans', {
+			weight: 300,
+			style: 'normal'
+		});
 		observer.check().then(function () {
 			document.documentElement.className += ' fonts-loaded';
 		});

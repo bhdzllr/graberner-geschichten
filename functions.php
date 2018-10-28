@@ -398,6 +398,7 @@ function gschichtn_opg_tags() {
 	<meta property="og:image" content="<?php echo $imgSrc; ?>" />
 	<meta property="og:image:width" content="<?php echo getimagesize($imgSrc)[0]; ?>" />
 	<meta property="og:image:height" content="<?php echo getimagesize($imgSrc)[1]; ?>" />
+	<meta property="fb:app_id" content="2085705815026208"/>
 	<meta name="twitter:card" content="<?php echo $twitterCardType; ?>" />
 	<!-- <meta name="twitter:site" content="@" /> -->
 	<meta name="twitter:title" content="<?php the_title() ?>" />
@@ -405,6 +406,64 @@ function gschichtn_opg_tags() {
 	<meta name="twitter:image" content="<?php echo $imgSrc; ?>" />
 	<?php
 }
+
+/**
+ * The Story
+ */
+if ( ! function_exists( 'the_story' ) ) :
+
+	function the_story($props) {
+		?>
+		<article
+			id="post-<?php echo $props['id'] ?>"
+			<?php post_class( $props['classes'] ); ?>
+			style="background-image: url('<?php echo $props['image']; ?>');"
+			data-category="<?php echo $props['categories'][0]->slug; ?>"
+			data-format="<?php echo $props['formats'][0]->slug; ?>"
+			data-year="<?php echo $props['years'][0]->slug; ?>"
+		>
+			<a href="<?php echo esc_url( $props['permalink'] ); ?>" title="Permalink zu <?php echo $props['title']; ?>" rel="bookmark" class="story__link story__link--index js-story-link">
+				<h1 class="story__title story__title--index"><?php echo $props['title'] ?></h1>
+				<p class="story__category story__category--index"><?php echo $props['categories'][0]->name; ?></p>
+				<p class="story__years story__years--index">
+				<?php if ( count( $props['years'] ) > 2 ) : ?>
+					<span class="story__year"><?php echo reset( $props['years'] )->name; ?> - <?php echo end( $props['years'] )->name; ?></span>
+				<?php else : ?>
+				<?php foreach ($props['years'] as $year) : ?>
+					<span class="story__year"><?php echo $year->name; ?></span>
+				<?php endforeach; ?>
+				<?php endif; ?>
+				</p>
+			</a>
+		</article>
+		<?php
+	}
+
+	/* Original Code before "the_story()"
+	<article
+		id="post-<?php the_ID(); ?>"
+		<?php post_class( 'story--index js-story' ); ?>
+		style="background-image: url('<?php echo $src[0]; ?>');"
+		data-category="<?php echo $storyCategories[0]->slug; ?>"
+		data-format="<?php echo $storyFormats[0]->slug; ?>"
+		data-year="<?php echo $storyYears[0]->slug; ?>"
+	>
+		<a href="<?php esc_url( the_permalink() ); ?>" title="<?php _e( 'Permalink to ', 'blankbase' ); the_title(); ?>" rel="bookmark" class="story__link story__link--index js-story-link">
+			<h1 class="story__title story__title--index"><?php the_title(); ?></h1>
+			<p class="story__category story__category--index"><?php echo $storyCategories[0]->name; ?></p>
+			<p class="story__years story__years--index">
+			<?php if ( count( $storyYears ) > 2 ) : ?>
+				<span class="story__year"><?php echo reset( $storyYears )->name; ?> - <?php echo end( $storyYears )->name; ?></span>
+			<?php else : ?>
+			<?php foreach ($storyYears as $year) : ?>
+				<span class="story__year"><?php echo $year->name; ?></span>
+			<?php endforeach; ?>
+			<?php endif; ?>
+			</p>
+		</a>
+	</article> */
+
+endif;
 
 /**
  * Initialize functions

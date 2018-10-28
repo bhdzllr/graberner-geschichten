@@ -36,7 +36,7 @@ html {
 body {
 	margin-bottom: 300px;
 
-	font-family: 'Open Sans Local', sans-serif;
+	font-family: 'Open Sans Local', Helvetica, Arial, sans-serif;
 }
 
 .fonts-loaded body {
@@ -375,7 +375,7 @@ a:active,
 .filter-form {
 	float: left;
 
-	width: 15%;
+	width: 20%;
 	/* margin-right: 30px; */
 	margin-left: 1%;
 }
@@ -387,7 +387,7 @@ a:active,
 	margin: 0;
 	padding: 0;
 
-	font-size: 1.145em;
+	font-size: 1.1em;
 	font-weight: normal;
 	text-transform: uppercase;
 }
@@ -398,7 +398,7 @@ a:active,
 	overflow: hidden;
 
 	height: 10px;
-	padding: 13px 0;
+	padding: 14px 0;
 
 	color: #222222;
 }
@@ -515,9 +515,10 @@ a:active,
 .filter-form--year {
 	/* float: right; */
 	position: relative;
+	left: 1%;
 
 	/*width: 68%;*/
-	width: 84%;
+	width: 78%;
 	margin: 0;
 }
 
@@ -1125,10 +1126,22 @@ p {
 	transition: transform 0.2s ease;
 }
 
+.main .story__related .story--index {
+	width: 31.33%;
+}
+
 @media only screen and (max-width: 880px) {
 	.main .story--index {
 		width: 31.33%;
-	}	
+	}
+
+	.main .story__related .story--index {
+		width: 48%;
+	}
+
+	.main .story__related .story--index:last-child {
+		display: none;
+	}
 }
 
 @media only screen and (max-width: 690px) {
@@ -1138,12 +1151,17 @@ p {
 }
 
 @media only screen and (max-width: 440px) {
-	.main .story--index {
+	.main .story--index,
+	.main .story__related .story--index {
 		float: none;
 
 		width: 92%;
 		height: 200px;
 		margin: 1em auto;
+	}
+
+	.main .story__related .story--index:last-child {
+		display: block;
 	}
 }
 
@@ -1292,6 +1310,7 @@ main article .story__meta-table {
 .link-back {
 	height: 1.75em;
 	margin: 1em auto -0.75em;
+	box-sizing: border-box;
 
 	color: #666666;
 	font-size: 0.9em;

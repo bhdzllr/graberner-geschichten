@@ -30,9 +30,6 @@ GSCHICHTN.Filter = (function(window, document, $) {
 	var loadMore      = loadMore(); // Closure, to only run once at a time
 	var loadMoreCount = 1;          // Count to load always a minimum of n (n = ppp) stories
 
-	/** Dropdown Bug Fix Switch, this is stupid, but it works */
-	var recentlyClosedDropdown = false;
-
 	/**
 	 * Prepare DOM,
 	 * hide and show different containers on initializing.
@@ -50,9 +47,12 @@ GSCHICHTN.Filter = (function(window, document, $) {
 	function initListeners() {
 		/** Dropdown */
 		$('.js-dropdown').click(toggleDropdown);
-		$('body').click(closeDropdown);
+		$('body').click(closeDropdownOnBodyClick);
 		$('.js-list').mouseleave(function(e) {
-			recentlyClosedDropdown = true;
+			// mouseleave is fired on touch devices and then the click event,
+			// it must be prevented that the dropdown fades out and reopens because click (toggle) is fired.
+			// A timestamp is used for this check. Stupid but it works.
+			$(this).data('last-closed', Date.now());
 			$(this).fadeOut('slow');
 		});
 
@@ -116,16 +116,15 @@ GSCHICHTN.Filter = (function(window, document, $) {
 	 * @returns {boolean} False (prevent default event).
 	 */
 	function toggleDropdown() {
-		if (recentlyClosedDropdown) {
-			recentlyClosedDropdown = false;
-			return false;
-		}
+		var $list = $(this)
+			.parent()
+			.parent()
+			.find('.js-list');
 
-		$(this)
-			.parent()
-			.parent()
-			.find('.js-list')
-			.fadeToggle('fast');
+		if ((Date.now() - $list.data('last-closed')) < 500) return false;
+
+		$list.data('last-closed', Date.now());
+		$list.fadeToggle('fast');
 
 		return false;
 	}
@@ -136,7 +135,7 @@ GSCHICHTN.Filter = (function(window, document, $) {
 	 * @param   {Object}  e Event.
 	 * @returns {boolean}   False (prevent default event) if a list is open, True if no list is open.
 	 */
-	function closeDropdown(e) {
+	function closeDropdownOnBodyClick(e) {
 		var target = e.target || e.srcElement;
 
 		if ($('.js-list').is(':visible') && !$(target).is('.js-list, .js-list li, .js-label, .js-input')) {

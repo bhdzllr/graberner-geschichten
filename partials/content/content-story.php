@@ -21,6 +21,29 @@ $video_url = 'https://www.youtube-nocookie.com/embed/' . $video_id . '?rel=0&amp
 
 ?>
 <?php if ( is_single() ) : ?>
+<?php
+
+$related = new WP_Query( array(
+	'post_type'      => 'story',
+	'post_status'    => 'publish',
+	'posts_per_page' => 3,
+	'post__not_in'   => array( get_the_ID() ),
+	'orderby'        => 'rand',
+	'tax_query' => array(
+		'relation' => 'OR',
+		array(
+			'taxonomy' => 'story-category',
+			'field'    => 'slug',
+			'terms'    => array_column($termsCategory, 'slug')
+		),
+		array(
+			'taxonomy' => 'story-tag',
+			'terms' => array_column($termsTag, 'name')
+		)
+	)
+) );
+
+?>
 
 <!-- <div class="hero-image" style="background-image: url('<?php echo $src[0]; ?>');"></div> -->
 
@@ -51,6 +74,30 @@ $video_url = 'https://www.youtube-nocookie.com/embed/' . $video_id . '?rel=0&amp
 		<div>		
 			<?php the_content(); ?>
 		</div>
+
+		<?php if( $related->have_posts() ) : ?>
+		<aside class="story__related clearfix">
+			<h2>Ähnliche Geschichten</h2>
+
+			<?php while( $related->have_posts() ) : $related->the_post(); ?>
+				<?php $the_story_id = get_the_ID(); ?>
+				<?php
+					$storyId = get_the_ID(); 
+
+					the_story([
+						'id'         => $storyId,
+						'classes'    => 'story--index js-story',
+						'image'      => wp_get_attachment_image_src( get_post_thumbnail_id( $storyId ), 'thumbnail-200' )[0],
+						'categories' => get_the_terms( $storyId, 'story-category' ),
+						'formats'    => get_the_terms( $storyId, 'story-format' ),
+						'years'      => get_the_terms( $storyId, 'story-year' ),
+						'permalink'  => get_permalink(),
+						'title'      => get_the_title()
+					]);
+				?>
+			<?php endwhile; ?>
+		</aside>
+		<?php endif; ?>
 
 		<aside class="story__meta">
 			<h2>Information</h2>
@@ -109,28 +156,16 @@ $video_url = 'https://www.youtube-nocookie.com/embed/' . $video_id . '?rel=0&amp
 
 <?php else : ?>
 
-<article
-	id="post-<?php the_ID(); ?>"
-	<?php post_class( 'story--index js-story' ); ?>
-	style="background-image: url('<?php echo $src[0]; ?>');"
-	data-category="<?php echo $storyCategories[0]->slug; ?>"
-	data-format="<?php echo $storyFormats[0]->slug; ?>"
-	data-year="<?php echo $storyYears[0]->slug; ?>"
->
-	<a href="<?php esc_url( the_permalink() ); ?>" title="<?php _e( 'Permalink to ', 'blankbase' ); the_title(); ?>" rel="bookmark" class="story__link story__link--index js-story-link">
-		<h1 class="story__title story__title--index"><?php the_title(); ?></h1>
-		<p class="story__category story__category--index"><?php echo $storyCategories[0]->name; ?></p>
-		<p class="story__years story__years--index">
-		<?php if ( count( $storyYears ) > 2 ) : ?>
-			<span class="story__year"><?php echo reset( $storyYears )->name; ?> - <?php echo end( $storyYears )->name; ?></span>
-		<?php else : ?>
-		<?php foreach ($storyYears as $year) : ?>
-			<span class="story__year"><?php echo $year->name; ?></span>
-		<?php endforeach; ?>
-		<?php endif; ?>
-		</p>
-	</a>
-</article>
+<?php the_story([
+	'id'         => get_the_ID(),
+	'classes'    => 'story--index js-story',
+	'image'      => $src[0],
+	'categories' => $storyCategories,
+	'formats'    => $storyFormats,
+	'years'      => $storyYears,
+	'permalink'  => get_permalink(),
+	'title'      => get_the_title(),
+]); ?>
 
 <?php endif; ?>
 
