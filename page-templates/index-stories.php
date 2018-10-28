@@ -57,10 +57,14 @@
 				<?php if ( empty( $termsYear ) ) : ?>
 					<li>Noch keine Jahreszahlen vorhanden.</li>
 				<?php endif; ?>
-				<?php foreach ($termsYear as $term) : ?>
+				<?php foreach ($termsYear as $key => $term) : ?>
 					<li>
 						<input type="checkbox" name="<?php echo $term->taxonomy . '-' . $term->slug; ?>" id="<?php echo $term->taxonomy . '-' . $term->slug; ?>" class="filter-form__input js-input" />
-						<label for="<?php echo $term->taxonomy . '-' . $term->slug; ?>" class="filter-form__label js-filter-story-year" data-filter-taxonomy="<?php echo str_replace('story-', '', $term->taxonomy); ?>" data-filter-slug="<?php echo $term->slug; ?>" data-filter-term-id="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></label>	
+						<label for="<?php echo $term->taxonomy . '-' . $term->slug; ?>" class="filter-form__label js-filter-story-year" data-filter-taxonomy="<?php echo str_replace('story-', '', $term->taxonomy); ?>" data-filter-slug="<?php echo $term->slug; ?>" data-filter-term-id="<?php echo $term->term_id; ?>">
+							<?php reset($termsYear); if ($key === key($termsYear)) : ?><span class="filter-form-label__meta">bis</span><?php endif; ?>
+							<?php end($termsYear); if ($key === key($termsYear)) : ?><span class="filter-form-label__meta">ab</span><?php endif; ?>
+							<?php echo $term->name; ?>	
+						</label>	
 					</li>
 				<?php endforeach; ?>
 				</ul>
@@ -72,9 +76,13 @@
 				<?php if ( empty( $termsYear ) ) : ?>
 					<li>Noch keine Jahreszahlen vorhanden.</li>
 				<?php endif; ?>
-				<?php foreach ($termsYear as $term) : ?>
+				<?php foreach ($termsYear as $key => $term) : ?>
 					<li>
-						<label for="<?php echo $term->taxonomy . '-' . $term->slug; ?>" class="filter-form__label js-filter-story-year js-label" data-filter-taxonomy="<?php echo str_replace('story-', '', $term->taxonomy); ?>" data-filter-slug="<?php echo $term->slug; ?>" data-filter-term-id="<?php echo $term->term_id; ?>"><?php echo $term->name; ?></label>	
+						<label for="<?php echo $term->taxonomy . '-' . $term->slug; ?>" class="filter-form__label js-filter-story-year js-label" data-filter-taxonomy="<?php echo str_replace('story-', '', $term->taxonomy); ?>" data-filter-slug="<?php echo $term->slug; ?>" data-filter-term-id="<?php echo $term->term_id; ?>">
+							<?php reset($termsYear); if ($key === key($termsYear)) : ?><span>bis</span><?php endif; ?>
+							<?php end($termsYear); if ($key === key($termsYear)) : ?><span>ab</span><?php endif; ?>
+							<?php echo $term->name; ?>
+						</label>	
 					</li>
 				<?php endforeach; ?>
 				</ul>
