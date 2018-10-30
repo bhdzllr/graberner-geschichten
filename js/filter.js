@@ -64,7 +64,7 @@ GSCHICHTN.Filter = (function(window, document, $) {
 		$('.js-reset').click(resetFilter);
 
 		/** Stories */
-		$(document).on('click', '.js-story-link', setViewedMarker);
+		// $(document).on('click', '.js-story-link', setViewedMarker);
 
 		/** Other UI elements */
 		$('.js-more').click(function() {

@@ -47,7 +47,7 @@ $related = new WP_Query( array(
 
 <!-- <div class="hero-image" style="background-image: url('<?php echo $src[0]; ?>');"></div> -->
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'story' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'story js-story-view' ); ?>>
 	<header class="story__header post-width">
 		<h1><?php the_title(); ?></h1>
 
@@ -86,7 +86,7 @@ $related = new WP_Query( array(
 
 					the_story([
 						'id'         => $storyId,
-						'classes'    => 'story--index js-story',
+						'classes'    => 'story story--index js-story',
 						'image'      => wp_get_attachment_image_src( get_post_thumbnail_id( $storyId ), 'thumbnail-200' )[0],
 						'categories' => get_the_terms( $storyId, 'story-category' ),
 						'formats'    => get_the_terms( $storyId, 'story-format' ),
@@ -158,7 +158,7 @@ $related = new WP_Query( array(
 
 <?php the_story([
 	'id'         => get_the_ID(),
-	'classes'    => 'story--index js-story',
+	'classes'    => 'story story--index js-story',
 	'image'      => $src[0],
 	'categories' => $storyCategories,
 	'formats'    => $storyFormats,

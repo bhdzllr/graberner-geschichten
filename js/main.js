@@ -47,6 +47,13 @@ GSCHICHTN.Main = (function(window, document, $) {
 			$view = $facts.offset().top;
 			countUpFacts(false);
 		}
+
+		/** Story View */
+		if ( $('.js-story-view') ) {
+			setTimeout(function () {
+				setViewedMarker($('.js-story-view').attr('id'));
+			}, 10000);
+		}
 	}
 
 	/**
@@ -136,6 +143,16 @@ GSCHICHTN.Main = (function(window, document, $) {
 		}, '500', 'swing');
 
 		return false;
+	}
+
+	/**
+	 * Set cookie on clicking a story.
+	 */
+	function setViewedMarker(postId) {
+		if (!Cookies.get(postId))
+			Cookies.set(postId, 'true', { expires: 3650 });
+
+		return true;
 	}
 
 	/** Public */
