@@ -11,8 +11,8 @@
 
 					<br />
 
-					<a href="http://www.noe.gv.at/Bildung/Wissenschaft-Forschung.html" title="Wissenschaft und Forschung Niederösterreich" target="_blank">
-						<img src="<?php echo get_stylesheet_directory_uri() ?>/img/footer-wissenschaft.png" alt="Wissenschaft und Forschung Niederösterreich Logo" />
+					<a href="http://www.noe.gv.at/noe/Kunst-Kultur/Kunst___Kultur.html" title="Kultur Niederösterreich" target="_blank">
+						<img src="<?php echo get_stylesheet_directory_uri() ?>/img/footer-kultur.png" alt="Wissenschaft und Forschung Niederösterreich Logo" />
 					</a>
 				</aside>
 

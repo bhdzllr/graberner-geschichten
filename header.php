@@ -7,11 +7,7 @@
 
 		<title><?php wp_title( '&#124;', true, 'right' ); bloginfo( 'name' ); ?></title>
 
-		<meta name="description" content="<?php bloginfo( 'description' ); ?>" />
-		<meta name="author" content="Manuel Köllner, Bernhard Zeller" />
-		<meta name="designer" content="Bernhard Zeller" />
-		<meta name="publisher" content="Gemeinde Grabern" />
-		<meta name="robots" content="index, follow" />
+		<?php gschichtn_meta_tags(); ?>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 

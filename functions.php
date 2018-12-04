@@ -262,6 +262,7 @@ function gschichtn_register_stories() {
 
 	/* remove_post_type_support( 'post', 'post-formats' );
 	add_post_type_support( 'story', 'post-formats' ); */
+	add_post_type_support( 'page', 'excerpt' );
 }
 
 /**
@@ -351,6 +352,24 @@ function gschichtn_save_meta_boxes( $post_id ) {
 	}
 
 	return true;
+}
+
+function gschichtn_meta_tags() {
+	global $post;
+
+	if ( $excerpt = $post->post_excerpt ) {
+		$excerpt = strip_tags( $post->post_excerpt );
+	} else {
+		$excerpt = get_bloginfo( 'description' );
+	}
+
+	?>
+	<meta name="description" content="<?php echo $excerpt; ?>" />
+	<meta name="author" content="Manuel Köllner, Bernhard Zeller" />
+	<meta name="designer" content="Bernhard Zeller" />
+	<meta name="publisher" content="Gemeinde Grabern" />
+	<meta name="robots" content="index, follow" />
+	<?php
 }
 
 function gschichtn_opg_tags() {
