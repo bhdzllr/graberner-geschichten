@@ -426,6 +426,63 @@ function gschichtn_opg_tags() {
 	<?php
 }
 
+function gschichtn_json_ld() {
+	global $post;
+
+	if ( ! is_single() ) return;
+
+	$title = strip_tags( get_the_title() );
+
+	if ( $excerpt = $post->post_excerpt ) {
+		$excerpt = strip_tags( $post->post_excerpt );
+	} else {
+		$excerpt = get_bloginfo( 'description' );
+	}
+
+	if ( has_post_thumbnail( $post->ID ) ) {
+		$imgSrc = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+		$imgSrc = $imgSrc[0];
+	} else {
+		$imgSrc = get_stylesheet_directory_uri() . '/img/opengraph.png';
+	}
+
+	$author = get_the_author_meta( 'display_name', $post->post_author );
+
+	if ( empty($author) ) $author = "Manuel Köllner";
+
+	?>
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "NewsArticle",
+			"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": "<?php the_permalink(); ?>"
+			},
+			"headline": "<?php echo $title; ?>",
+			"description": "<?php echo $excerpt; ?>",
+			"image": [
+				"<?php echo $imgSrc; ?>"
+			],
+			"datePublished": "<?php echo get_the_date( 'c' ); ?>",
+			"dateModified": "<?php echo get_the_modified_date( 'c' ); ?>",
+			"author": {
+				"@type": "Person",
+				"name": "<?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>"
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Graberner GeschichteN",
+				"logo": {
+					"@type": "ImageObject",
+					"url": "https://www.grabernergeschichten.at/system/wp-content/themes/gschichtn-child/img/logo-n.png"
+				}
+			}
+		}
+	</script>
+	<?php
+}
+
 /**
  * The Story
  */

@@ -8,6 +8,7 @@
 		<title><?php wp_title( '&#124;', true, 'right' ); bloginfo( 'name' ); ?></title>
 
 		<?php gschichtn_meta_tags(); ?>
+		<?php gschichtn_json_ld(); ?>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
