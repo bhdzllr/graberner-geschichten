@@ -360,7 +360,10 @@ function gschichtn_meta_tags() {
 	if ( $excerpt = $post->post_excerpt ) {
 		$excerpt = strip_tags( $post->post_excerpt );
 	} else {
-		$excerpt = get_bloginfo( 'description' );
+		$content = $post->post_content;
+		$content = strip_tags( $content );
+		$excerpt = substr( $content, 0, 255 );
+		$excerpt = preg_replace( '/\r|\n/', ' ', $excerpt );
 	}
 
 	?>
@@ -436,7 +439,10 @@ function gschichtn_json_ld() {
 	if ( $excerpt = $post->post_excerpt ) {
 		$excerpt = strip_tags( $post->post_excerpt );
 	} else {
-		$excerpt = get_bloginfo( 'description' );
+		$content = $post->post_content;
+		$content = strip_tags( $content );
+		$excerpt = substr( $content, 0, 255 );
+		$excerpt = preg_replace( '/\r|\n/', ' ', $excerpt );
 	}
 
 	if ( has_post_thumbnail( $post->ID ) ) {
